@@ -1,1 +1,3 @@
 .ENV
+.config
+node_modules
