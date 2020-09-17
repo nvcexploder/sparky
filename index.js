@@ -8,7 +8,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   console.log(`${JSON.stringify(msg)}`)
-  if (msg.content === `help`) {
+  if (msg.content.indexOf(`help`) > -1) {
     msg.reply(`You're doing great!`);
   }
 });
