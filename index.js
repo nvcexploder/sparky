@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const conf = {
   token: process.env['TOKEN'],
-  port: process.env['PORT']
+  port: process.env.PORT
 }
 const fastify = require('fastify')({
   logger: true
@@ -20,6 +20,10 @@ client.on('message', msg => {
 });
 
 client.login(conf.token);
+
+fastify.get('/', (request, reply) => {
+  reply.send({ sparky: '🍕' })
+})
 
 fastify.listen(conf.port, (err, address) => {
   if (err) throw err
