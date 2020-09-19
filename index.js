@@ -1,9 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const conf = {
-  token: process.env['TOKEN'],
-  port: process.env.PORT
-}
+const conf = require('rc')('sparky')
 const fastify = require('fastify')({
   logger: true
 })
@@ -16,6 +13,9 @@ client.on('message', msg => {
   console.log(`${JSON.stringify(msg)}`)
   if (msg.content.indexOf(`help`) > -1) {
     msg.reply(`You're doing great!`);
+  }
+  if (msg.content.indexOf(`!rolld20`)===0) {
+    msg.reply(`it's ${Math.floor(Math.random() * 20) + 1  }`)
   }
 });
 
