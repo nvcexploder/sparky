@@ -1,6 +1,10 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const conf = require('rc')('sparky')
+
+// commands - these files should be named after the commands the perform
+// for example, !roll -> roll
+const roll = require('./roll');
 const fastify = require('fastify')({
   logger: true
 })
@@ -15,7 +19,10 @@ client.on('message', msg => {
     msg.reply(`You're doing great!`);
   }
   if (msg.content.indexOf(`!rolld20`)===0) {
-    msg.reply(`it's ${Math.floor(Math.random() * 20) + 1  }`)
+    msg.reply(`it's ${roll.roll(roll.d20)  }`)
+  }
+  if (msg.content.indexOf(`!justa20`)===0) {
+    msg.reply(`is a cheater`)
   }
 });
 
