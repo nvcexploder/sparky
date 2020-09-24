@@ -1,13 +1,11 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const conf = require('rc')('sparky')
+const conf = require('rc')('sparky');
+const TTS=require("discord-tts");
 
 // commands - these files should be named after the commands the perform
 // for example, !roll -> roll
 const roll = require('./roll');
-const fastify = require('fastify')({
-  logger: true
-})
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -24,15 +22,14 @@ client.on('message', msg => {
   if (msg.content.indexOf(`!justa20`)===0) {
     msg.reply(`is a cheater`)
   }
+  if(msg.content==="!ssay"){
+    const voiceChannel = msg.member.voice.channel;
+    voiceChannel.join().then(connection => {
+        const stream = discordTTS.getVoiceStream("sweaty gams");
+        const dispatcher = connection.play(stream);
+        dispatcher.on("finish",()=>voiceChannel.leave())
+    });
+}
 });
 
 client.login(conf.token);
-
-fastify.get('/', (request, reply) => {
-  reply.send({ sparky: '🍕' })
-})
-
-fastify.listen(conf.port, (err, address) => {
-  if (err) throw err
-  fastify.log.info(`server listening on ${address}`)
-})
